@@ -1,45 +1,819 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Wranglers</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            padding: 2rem;
-        }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p {
-            font-size: 1.25rem;
-            color: #94a3b8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIWranglers | Stay Ahead of AI</title>
+  <meta name="description"
+    content="AIWranglers is an evolving education and training roadmap for understanding, guiding, and building with AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b11;
+      --ink: #f6f8fb;
+      --muted: #aeb9c8;
+      --line: rgba(255, 255, 255, 0.14);
+      --amber: #f2a33b;
+      --cyan: #25d8e8;
+      --green: #8fd450;
+      --violet: #9b7cff;
+      --panel: rgba(10, 15, 24, 0.78);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(8, 11, 17, 0.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(37, 216, 232, 0.45);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(37, 216, 232, 0.22), rgba(242, 163, 59, 0.22));
+      color: var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      min-height: 38px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+    }
+
+    .launch-link {
+      border: 1px solid rgba(242, 163, 59, 0.45);
+      background: rgba(242, 163, 59, 0.13);
+      color: #ffd99b !important;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 120px 0 54px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background: url("images/research_genai.png") center right / cover no-repeat;
+      filter: saturate(0.9) contrast(1.04);
+      transform: scale(1.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(8, 11, 17, 0.98) 0%, rgba(8, 11, 17, 0.88) 36%, rgba(8, 11, 17, 0.42) 72%),
+        linear-gradient(0deg, rgba(8, 11, 17, 1) 0%, rgba(8, 11, 17, 0.12) 45%);
+    }
+
+    .hero-inner,
+    .section-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1px solid rgba(37, 216, 232, 0.32);
+      border-radius: 8px;
+      background: rgba(37, 216, 232, 0.08);
+      color: #9ff6ff;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      letter-spacing: 0;
+      line-height: 1.02;
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin-top: 22px;
+      font-size: clamp(3.1rem, 8vw, 7.4rem);
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin: 24px 0 0;
+      color: #dce5ef;
+      font-size: clamp(1.08rem, 2vw, 1.38rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .button-primary {
+      background: var(--amber);
+      color: #12100b;
+    }
+
+    .button-secondary {
+      border-color: rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--ink);
+    }
+
+    .scroll-cue {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      max-width: 420px;
+      margin-top: 46px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .progress-track {
+      height: 2px;
+      background: rgba(255, 255, 255, 0.16);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--amber), var(--cyan), var(--green));
+    }
+
+    main {
+      background:
+        linear-gradient(180deg, #080b11 0%, #101724 34%, #0a1018 64%, #080b11 100%);
+    }
+
+    section {
+      position: relative;
+      padding: 96px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .story {
+      padding-top: 120px;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+      gap: 56px;
+      align-items: start;
+    }
+
+    .story-sticky {
+      position: sticky;
+      top: 116px;
+      min-height: 420px;
+      display: grid;
+      align-content: center;
+      border-left: 3px solid var(--amber);
+      padding-left: 22px;
+    }
+
+    .story-kicker {
+      color: var(--amber);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    .story-title {
+      margin-top: 12px;
+      font-size: clamp(2rem, 4vw, 4rem);
+    }
+
+    .story-note {
+      max-width: 440px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 24px;
+    }
+
+    .step {
+      min-height: 68vh;
+      display: grid;
+      align-content: center;
+      padding: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035));
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+      opacity: 0.48;
+      transform: translateY(18px);
+      transition: opacity 360ms ease, transform 360ms ease, border-color 360ms ease;
+    }
+
+    .step.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      border-color: rgba(37, 216, 232, 0.45);
+    }
+
+    .step-number {
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .step h3 {
+      margin-top: 12px;
+      font-size: clamp(1.85rem, 3.6vw, 3.4rem);
+    }
+
+    .step p {
+      max-width: 700px;
+      margin: 18px 0 0;
+      color: #d4deeb;
+      font-size: clamp(1.02rem, 1.7vw, 1.25rem);
+    }
+
+    .band {
+      background:
+        radial-gradient(circle at 18% 20%, rgba(37, 216, 232, 0.16), transparent 30%),
+        radial-gradient(circle at 86% 15%, rgba(143, 212, 80, 0.12), transparent 28%),
+        #0d141f;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(300px, 1fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.2rem, 5vw, 5rem);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .roadmap-item,
+    .promise-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 24px;
+    }
+
+    .roadmap-item strong {
+      display: block;
+      color: var(--amber);
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+    }
+
+    .roadmap-item h3,
+    .promise-item h3 {
+      font-size: 1.36rem;
+      line-height: 1.16;
+    }
+
+    .roadmap-item p,
+    .promise-item p {
+      color: var(--muted);
+      margin: 14px 0 0;
+      font-size: 0.96rem;
+    }
+
+    .curriculum {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .curriculum-main {
+      min-height: 520px;
+      border-radius: 8px;
+      border: 1px solid rgba(37, 216, 232, 0.28);
+      background:
+        linear-gradient(120deg, rgba(8, 11, 17, 0.22), rgba(8, 11, 17, 0.88)),
+        url("images/research_safety.png") center / cover no-repeat;
+      display: grid;
+      align-content: end;
+      padding: 32px;
+    }
+
+    .curriculum-main h2 {
+      max-width: 640px;
+      font-size: clamp(2rem, 4.8vw, 4.8rem);
+    }
+
+    .curriculum-main p {
+      max-width: 620px;
+      color: #dfe8f2;
+      font-size: 1.05rem;
+      margin: 18px 0 0;
+    }
+
+    .promise-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .promise-item {
+      min-height: 158px;
+    }
+
+    .community {
+      overflow: hidden;
+    }
+
+    .marquee {
+      display: flex;
+      gap: 14px;
+      margin: 42px 0 0;
+      width: max-content;
+      animation: drift 28s linear infinite;
+    }
+
+    .tag {
+      padding: 13px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #dfe8f2;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .final {
+      min-height: 74vh;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(8, 11, 17, 0.92), rgba(8, 11, 17, 0.72)),
+        url("images/social_generalization.png") center / cover no-repeat;
+    }
+
+    .final h2 {
+      max-width: 920px;
+      font-size: clamp(2.5rem, 6vw, 6rem);
+    }
+
+    .final p {
+      max-width: 720px;
+      color: #dce5ef;
+      font-size: 1.15rem;
+      margin: 22px 0 0;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      background: #080b11;
+    }
+
+    .footer-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        min-height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 170px;
+      }
+
+      .story-grid,
+      .section-head,
+      .curriculum {
+        grid-template-columns: 1fr;
+      }
+
+      .story-sticky {
+        position: relative;
+        top: auto;
+        min-height: auto;
+      }
+
+      .step {
+        min-height: 58vh;
+        padding: 26px;
+      }
+
+      .roadmap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links a {
+        font-size: 0.86rem;
+        padding-inline: 10px;
+      }
+
+      .hero {
+        min-height: 92vh;
+      }
+
+      .hero::before {
+        background-position: 62% center;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .roadmap {
+        grid-template-columns: 1fr;
+      }
+
+      .curriculum-main {
+        min-height: 420px;
+        padding: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Hello World</h1>
-        <p>Welcome to <strong>aiwranglers.org</strong>. Something amazing is cooking here.</p>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#top" class="brand" aria-label="AIWranglers home">
+        <span class="brand-mark">AI</span>
+        <span>AIWranglers</span>
+      </a>
+      <div class="nav-links">
+        <a href="#story">Story</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#community">Community</a>
+        <a href="https://aiwranglers.org" target="_blank" rel="noopener noreferrer" class="launch-link">Launch Site</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="top" aria-label="AIWranglers introduction">
+    <div class="hero-inner">
+      <span class="eyebrow">A living roadmap for the age of AI</span>
+      <h1>Stop worrying. Start wrangling.</h1>
+      <p class="hero-copy">AI is becoming more capable every month. The question is no longer whether it will change
+        coding, learning, science, work, and creativity. The question is whether we will understand it well enough to
+        guide it.</p>
+      <div class="hero-actions">
+        <a href="#story" class="button button-primary">Begin the story</a>
+        <a href="#curriculum" class="button button-secondary">See what we will build</a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="progress-track"><span class="progress-fill" id="scrollProgress"></span></span>
+      </div>
     </div>
+  </section>
+
+  <main>
+    <section class="story" id="story">
+      <div class="section-inner story-grid">
+        <div class="story-sticky">
+          <div class="story-kicker">Why wrangle?</div>
+          <h2 class="story-title" id="storyTitle">The ground is moving.</h2>
+          <p class="story-note" id="storyNote">This page changes as the field changes. The aim is not a fixed syllabus.
+            The aim is a disciplined way to keep moving with AI.</p>
+        </div>
+        <div class="steps">
+          <article class="step is-active" data-title="The ground is moving."
+            data-note="We start by naming the moment clearly: AI is no longer a distant tool. It is becoming a working partner, a research assistant, a coder, and a maker.">
+            <span class="step-number">01</span>
+            <h3>We are entering the era of AI.</h3>
+            <p>Every field is being rewritten in public. There is excitement, but also confusion: what matters, what is
+              hype, what is real, and what should a serious learner do next?</p>
+          </article>
+
+          <article class="step" data-title="Confusion is expected."
+            data-note="Fear usually grows when the roadmap is missing. We replace vague anxiety with concrete concepts, experiments, and practice.">
+            <span class="step-number">02</span>
+            <h3>There are doubts, myths, and moving goal posts.</h3>
+            <p>Some people assume AI will become the best coder. Some assume it will replace all judgment. Some assume it
+              is only a passing wave. The honest answer is more useful: capabilities are evolving, and our plan must
+              evolve with them.</p>
+          </article>
+
+          <article class="step" data-title="Guidance still matters."
+            data-note="Even a powerful model needs goals, context, taste, constraints, verification, and responsibility. That is the human role we train for.">
+            <span class="step-number">03</span>
+            <h3>If AI becomes excellent, it will still need direction.</h3>
+            <p>Great tools do not remove the need for understanding. They raise the standard for it. The more capable AI
+              becomes, the more valuable it is to know what to ask, how to test, where it fails, and when to intervene.
+            </p>
+          </article>
+
+          <article class="step" data-title="Take control."
+            data-note="Wrangling means practical command: understand the system, shape the workflow, test the result, and update the map.">
+            <span class="step-number">04</span>
+            <h3>What if we stop worrying and start wrangling?</h3>
+            <p>Wrangling is not blind optimism. It is active control. We learn where AI is going, build skills from first
+              principles, and keep our roadmap alive as the technology shifts.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="roadmap">
+      <div class="section-inner">
+        <div class="section-head">
+          <h2>A roadmap that updates itself.</h2>
+          <p>The goal is to stay one step ahead: not by predicting everything, but by revising the plan whenever models,
+            tools, risks, and opportunities change.</p>
+        </div>
+        <div class="roadmap">
+          <article class="roadmap-item">
+            <strong>Track 01</strong>
+            <h3>Foundations</h3>
+            <p>Mathematics, logic, probability, optimization, coding, and the habits needed to reason from the ground up.
+            </p>
+          </article>
+          <article class="roadmap-item">
+            <strong>Track 02</strong>
+            <h3>Models</h3>
+            <p>Machine learning, deep learning, generative models, agents, evaluation, alignment, and model limitations.
+            </p>
+          </article>
+          <article class="roadmap-item">
+            <strong>Track 03</strong>
+            <h3>Capabilities</h3>
+            <p>What AI can do today, what changed recently, and which skills remain durable as tools improve.</p>
+          </article>
+          <article class="roadmap-item">
+            <strong>Track 04</strong>
+            <h3>Problems</h3>
+            <p>Hands-on challenges that evolve with the field, from novice exercises to expert-level research and
+              engineering tasks.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="curriculum">
+      <div class="section-inner curriculum">
+        <div class="curriculum-main">
+          <h2>Build from first principles, then keep building.</h2>
+          <p>AIWranglers will connect fundamentals with current practice: math, logic, training, architectures,
+            capabilities, workflows, verification, safety, and real problems worth solving.</p>
+        </div>
+        <div class="promise-list">
+          <article class="promise-item">
+            <h3>For young and old.</h3>
+            <p>Start wherever you are. The path should be serious without being exclusionary.</p>
+          </article>
+          <article class="promise-item">
+            <h3>For novice and expert.</h3>
+            <p>Clear entry points for beginners, deeper tracks for practitioners, and research-grade questions for
+              advanced learners.</p>
+          </article>
+          <article class="promise-item">
+            <h3>For today and what comes next.</h3>
+            <p>Static courses age quickly. This roadmap is designed to move as AI moves.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="community" id="community">
+      <div class="section-inner">
+        <div class="section-head">
+          <h2>This is why we call ourselves wranglers.</h2>
+          <p>We do not wait for the future to arrive fully formed. We study it, test it, shape it, and teach each other
+            how to work with it responsibly.</p>
+        </div>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <span class="tag">Math</span>
+        <span class="tag">Logic</span>
+        <span class="tag">Coding</span>
+        <span class="tag">Training</span>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Agents</span>
+        <span class="tag">Evaluation</span>
+        <span class="tag">Safety</span>
+        <span class="tag">Research Problems</span>
+        <span class="tag">AI Workflows</span>
+        <span class="tag">Math</span>
+        <span class="tag">Logic</span>
+        <span class="tag">Coding</span>
+        <span class="tag">Training</span>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Agents</span>
+        <span class="tag">Evaluation</span>
+        <span class="tag">Safety</span>
+        <span class="tag">Research Problems</span>
+        <span class="tag">AI Workflows</span>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="section-inner">
+        <h2>Let us do this together.</h2>
+        <p>AI will keep evolving. So will we. AIWranglers is a place to learn deeply, update dynamically, and stay in
+          command of the tools that are changing the world.</p>
+        <div class="hero-actions">
+          <a href="#top" class="button button-primary">Back to top</a>
+          <a href="https://aiwranglers.org" target="_blank" rel="noopener noreferrer"
+            class="button button-secondary">Open aiwranglers.org</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>AIWranglers</span>
+      <span>A living education and training roadmap for AI.</span>
+    </div>
+  </footer>
+
+  <script>
+    const progress = document.getElementById('scrollProgress');
+    const steps = [...document.querySelectorAll('.step')];
+    const storyTitle = document.getElementById('storyTitle');
+    const storyNote = document.getElementById('storyNote');
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        steps.forEach((step) => step.classList.toggle('is-active', step === entry.target));
+        storyTitle.textContent = entry.target.dataset.title;
+        storyNote.textContent = entry.target.dataset.note;
+      });
+    }, { threshold: 0.52 });
+
+    steps.forEach((step) => observer.observe(step));
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  </script>
 </body>
+
 </html>
